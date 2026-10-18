@@ -8,7 +8,9 @@
 
 ## 📥 Скачать MusicSceneMaker 0.2 Beta
 
-**[Скачать установщик Windows x64 (.exe)](https://github.com/MSM-App/MusicSceneMaker-App/raw/refs/heads/main/MusicSceneMaker_0.2.0-beta.1_x64-setup.exe)**
+**[Скачать установщик Windows x64 (.exe)](https://github.com/MSM-App/MusicSceneMaker-App/releases/download/v0.2.0-beta.1/MusicSceneMaker_0.2.0-beta.1_x64-setup.exe)**
+
+**[📦 Страница версии 0.2 Beta в GitHub Releases](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.0-beta.1)** — здесь публикуются установщики и обновления.
 
 | Параметр | Значение |
 | --- | --- |
@@ -19,7 +21,7 @@
 | SHA-256 | `231BEA0F0B54D6C48E6D3CB6374CF26ADDA5398A8542C13DF6911A99655729E5` |
 | Подпись | Установщик пока **не подписан цифровым сертификатом** |
 
-[Перейти к загрузке](#-скачать-musicscenemaker-02-beta) · [Как устроена программа](#как-работает-musicscenemaker) · [Первый запуск](#первый-запуск) · [Обратная связь](#помощь-и-обратная-связь)
+[Все выпуски — GitHub Releases](https://github.com/MSM-App/MusicSceneMaker-App/releases) · [Как устроена программа](#как-работает-musicscenemaker) · [Первый запуск](#первый-запуск) · [Обратная связь](#помощь-и-обратная-связь)
 
 ## Что такое MusicSceneMaker
 
@@ -193,7 +195,7 @@ MusicSceneMaker распространяется по **собственной �
 
 Тексты лицензии программы и **THIRD PARTY NOTICES** доступны в разделе «О программе». ComfyUI, FFmpeg, модели AI и сторонние узлы распространяются на условиях их правообладателей; лицензия MusicSceneMaker не заменяет эти условия.
 
-**Этот публичный GitHub содержит только описание и установщик.** Исходный код находится в закрытом репозитории. Проект находится в активной разработке.
+**Этот публичный GitHub содержит описание; установщики размещаются отдельно в разделе Releases.** Исходный код находится в закрытом репозитории. Проект находится в активной разработке.
 
 ---
 
