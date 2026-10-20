@@ -4,25 +4,22 @@
 
 Вместо десятков несвязанных ComfyUI-графов проект предлагает последовательный рабочий процесс: **идея и музыка → сценарий → герои → сцены → генерация → готовый ролик**.
 
-> **Доступна MusicSceneMaker 0.2.1 Beta — экспериментальное обновление от 20.10.2026.** Новый MiniMax H3 Upscaler, BlockSparseAttention и промпты для Singularity. Это ранняя бета, некоторые режимы ещё требуют живой проверки.
+> **MusicSceneMaker 0.2.1 Beta — изменения 19–20 октября 2026.** Обновлена режиссура MiniMax H3: кто и когда поёт, привязка вокала, референсы героев и продолжение сцен. Добавлены необязательный латентный апскейлер, BlockSparseAttention и инструкции для Singularity. Функции проходят публичное бета-тестирование.
 
 ## 📥 Скачать MusicSceneMaker 0.2.1 Beta
 
-**Исправление 20.10:** закраска лиц на новых карточках MiniMax H3 отключена; уже сохранённые изображения с чёрными квадратами нужно заменить оригиналами без маски.
-
-
 **[Скачать Windows x64 установщик](https://github.com/MSM-App/MusicSceneMaker-App/releases/download/v0.2.1-beta.1/MusicSceneMaker_0.2.1-beta.1_x64-setup.exe)**
 
-[Релиз 0.2.1 Beta](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.1-beta.1) · [Список изменений](RELEASE_NOTES_0.2.1_BETA.md) · [Все выпуски](https://github.com/MSM-App/MusicSceneMaker-App/releases)
+[Страница релиза](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.1-beta.1) · **[Все изменения 19–20 октября](RELEASE_NOTES_0.2.1_BETA.md)** · [Предыдущие выпуски](https://github.com/MSM-App/MusicSceneMaker-App/releases)
 
 | Параметр | Значение |
 | --- | --- |
 | Версия | 0.2.1-beta.1 |
-| Платформа | Windows x64 |
-| Размер EXE | 14276918 байт |
+| Система | Windows x64 |
+| Размер | 14268449 байт |
 | SHA-256 | D2FA30D4A700764EE3C72D1840A107A51120F2A9AA63235B65EFDDAF2B0C7816 |
-| Подпись | Пока нет |
-| Модели AI | Не включены |
+| Подпись | Отсутствует |
+| Модели AI | Отдельная установка |
 
 ## Что такое MusicSceneMaker
 

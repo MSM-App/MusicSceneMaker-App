@@ -8,6 +8,8 @@ on:
     paths:
       - 'release-assets/MusicSceneMaker_0.2.1-beta.1_x64-setup.exe'
       - '.github/workflows/publish-beta-021.yml'
+      - 'RELEASE_NOTES_0.2.1_BETA.md'
+      - 'README.md'
   workflow_dispatch:
 permissions:
   contents: write
