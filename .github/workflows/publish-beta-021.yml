@@ -3,6 +3,12 @@ on:
   push:
     tags:
       - 'v0.2.1-beta.1'
+    branches:
+      - main
+    paths:
+      - 'release-assets/MusicSceneMaker_0.2.1-beta.1_x64-setup.exe'
+      - '.github/workflows/publish-beta-021.yml'
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -10,16 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Publish beta installer to GitHub Releases
+      - name: Publish or refresh beta installer on existing release
         env:
           GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: v0.2.1-beta.1
         shell: bash
         run: |
           set -euo pipefail
           asset="release-assets/MusicSceneMaker_0.2.1-beta.1_x64-setup.exe"
           test -s "$asset"
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" "$asset" --clobber
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$asset" --clobber
+            gh release edit "$RELEASE_TAG" --notes-file RELEASE_NOTES_0.2.1_BETA.md
           else
-            gh release create "$GITHUB_REF_NAME" "$asset" --title "MusicSceneMaker 0.2.1 Beta" --notes-file RELEASE_NOTES_0.2.1_BETA.md --prerelease --verify-tag
+            gh release create "$RELEASE_TAG" "$asset" --title "MusicSceneMaker 0.2.1 Beta" --notes-file RELEASE_NOTES_0.2.1_BETA.md --prerelease --verify-tag
           fi

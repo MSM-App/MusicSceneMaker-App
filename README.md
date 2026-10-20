@@ -8,6 +8,9 @@
 
 ## 📥 Скачать MusicSceneMaker 0.2.1 Beta
 
+**Исправление 20.10:** закраска лиц на новых карточках MiniMax H3 отключена; уже сохранённые изображения с чёрными квадратами нужно заменить оригиналами без маски.
+
+
 **[Скачать Windows x64 установщик](https://github.com/MSM-App/MusicSceneMaker-App/releases/download/v0.2.1-beta.1/MusicSceneMaker_0.2.1-beta.1_x64-setup.exe)**
 
 [Релиз 0.2.1 Beta](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.1-beta.1) · [Список изменений](RELEASE_NOTES_0.2.1_BETA.md) · [Все выпуски](https://github.com/MSM-App/MusicSceneMaker-App/releases)
@@ -17,7 +20,7 @@
 | Версия | 0.2.1-beta.1 |
 | Платформа | Windows x64 |
 | Размер EXE | 14276918 байт |
-| SHA-256 | 80C84F401A4F297314A7A8906A7CDF755F7BB9A7DCE7A210D29327874BFB48EC |
+| SHA-256 | D2FA30D4A700764EE3C72D1840A107A51120F2A9AA63235B65EFDDAF2B0C7816 |
 | Подпись | Пока нет |
 | Модели AI | Не включены |
 
