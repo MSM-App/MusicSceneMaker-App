@@ -4,24 +4,22 @@
 
 Вместо десятков несвязанных ComfyUI-графов проект предлагает последовательный рабочий процесс: **идея и музыка → сценарий → герои → сцены → генерация → готовый ролик**.
 
-> **Сейчас доступна MusicSceneMaker 0.2 Beta — первая публичная тестовая версия.** Это ранняя бета, а не полностью отлаженный видеоредактор: часть возможностей экспериментальна, а некоторые модели и зависимости ещё требуют ручной настройки.
+> **Доступна MusicSceneMaker 0.2.1 Beta — экспериментальное обновление от 20.10.2026.** Новый MiniMax H3 Upscaler, BlockSparseAttention и промпты для Singularity. Это ранняя бета, некоторые режимы ещё требуют живой проверки.
 
-## 📥 Скачать MusicSceneMaker 0.2 Beta
+## 📥 Скачать MusicSceneMaker 0.2.1 Beta
 
-**[Скачать установщик Windows x64 (.exe)](https://github.com/MSM-App/MusicSceneMaker-App/releases/download/v0.2.0-beta.1/MusicSceneMaker_0.2.0-beta.1_x64-setup.exe)**
+**[Скачать Windows x64 установщик](https://github.com/MSM-App/MusicSceneMaker-App/releases/download/v0.2.1-beta.1/MusicSceneMaker_0.2.1-beta.1_x64-setup.exe)**
 
-**[📦 Страница версии 0.2 Beta в GitHub Releases](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.0-beta.1)** — здесь публикуются установщики и обновления.
+[Релиз 0.2.1 Beta](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.1-beta.1) · [Список изменений](RELEASE_NOTES_0.2.1_BETA.md) · [Все выпуски](https://github.com/MSM-App/MusicSceneMaker-App/releases)
 
 | Параметр | Значение |
 | --- | --- |
-| Версия | **0.2 Beta** (`0.2.0-beta.1`) |
-| Система | Windows x64 |
-| Установщик | `MusicSceneMaker_0.2.0-beta.1_x64-setup.exe` |
-| Размер | 14 105 359 байт (13,5 МиБ) |
-| SHA-256 | `231BEA0F0B54D6C48E6D3CB6374CF26ADDA5398A8542C13DF6911A99655729E5` |
-| Подпись | Установщик пока **не подписан цифровым сертификатом** |
-
-[Все выпуски — GitHub Releases](https://github.com/MSM-App/MusicSceneMaker-App/releases) · [Как устроена программа](#как-работает-musicscenemaker) · [Первый запуск](#первый-запуск) · [Обратная связь](#помощь-и-обратная-связь)
+| Версия | 0.2.1-beta.1 |
+| Платформа | Windows x64 |
+| Размер EXE | 14276918 байт |
+| SHA-256 | 80C84F401A4F297314A7A8906A7CDF755F7BB9A7DCE7A210D29327874BFB48EC |
+| Подпись | Пока нет |
+| Модели AI | Не включены |
 
 ## Что такое MusicSceneMaker
 
