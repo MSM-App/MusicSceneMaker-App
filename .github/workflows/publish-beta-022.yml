@@ -1,0 +1,29 @@
+name: MusicSceneMaker 0.2.1 Beta 2 release
+on:
+  push:
+    tags:
+      - 'v0.2.1-beta.2'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish or refresh beta installer on existing release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: v0.2.1-beta.2
+        shell: bash
+        run: |
+          set -euo pipefail
+          asset="release-assets/MusicSceneMaker_0.2.1-beta.2_x64-setup.exe"
+          test -s "$asset"
+          echo "467d1d6afcddf73f1edc66c9c74ba362927b2ff9051d02a1f2201683e5ccbc7b  $asset" | sha256sum -c -
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$asset" --clobber
+            gh release edit "$RELEASE_TAG" --notes-file RELEASE_NOTES_0.2.1_BETA_2.md
+          else
+            gh release create "$RELEASE_TAG" "$asset" --title "MusicSceneMaker 0.2.1 Beta 2" --notes-file RELEASE_NOTES_0.2.1_BETA_2.md --prerelease --verify-tag
+          fi
