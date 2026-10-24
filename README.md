@@ -1,5 +1,7 @@
 # MusicSceneMaker
 
+**🚀 24 октября: [MusicSceneMaker 0.2.3 Beta 1 — редактор каждой сцены, прогресс экспорта и NVENC](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.3-beta.1).** Windows x64: новый редактор MiniMax H3, отдельные LoRA и параметры генерации, прогресс загрузки моделей и сборки роликов. [Подробности](RELEASE_NOTES_0.2.3_BETA.md).
+
 **🚀 22 октября: [MusicSceneMaker 0.2.2 Beta — обновление установки и MiniMax H3](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.2-beta.1).** Windows x64: выбор диска и NVIDIA GPU, единая версия, исправление настроек MiniMax и улучшение H3 Latent Upscale. [Подробности](RELEASE_NOTES_0.2.2_BETA.md).
 
 **🔧 21 октября: [MusicSceneMaker 0.2.1 Beta 2 — тест исправленного установщика](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.1-beta.2).** Windows x64, исправления распаковки ComfyUI, переноса хранилища и интерфейса установки. [Подробности](RELEASE_NOTES_0.2.1_BETA_2.md). Предыдущая Beta 1 оставлена ниже для истории.
@@ -9,20 +11,20 @@
 
 Вместо десятков несвязанных ComfyUI-графов проект предлагает последовательный рабочий процесс: **идея и музыка → сценарий → герои → сцены → генерация → готовый ролик**.
 
-> **MusicSceneMaker 0.2.2 Beta — изменения 22 октября 2026.** Я добавил выбор видеокарты и папки установки ComfyUI, исправил сохранение настроек MiniMax H3 и расширил поддержку латентного апскейла. Программа остаётся тестовой.
+> **MusicSceneMaker 0.2.3 Beta — изменения 24 октября 2026.** Главная новинка — редактор каждой сцены MiniMax H3, управление героями и индивидуальными настройками. Экспорт стал нагляднее, кодирование быстрее на NVIDIA NVENC. Это тестовая версия, часть функций требует живой проверки на GPU.
 
-## 📥 Скачать MusicSceneMaker 0.2.2 Beta
+## 📥 Скачать MusicSceneMaker 0.2.3 Beta 1
 
-**[Скачать Windows x64 установщик](https://github.com/MSM-App/MusicSceneMaker-App/releases/download/v0.2.2-beta.1/MusicSceneMaker_0.2.2-beta.1_x64-setup.exe)**
+**[Скачать Windows x64 установщик](https://github.com/MSM-App/MusicSceneMaker-App/releases/download/v0.2.3-beta.1/MusicSceneMaker_0.2.3-beta.1_x64-setup.exe)**
 
-[Страница релиза](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.2-beta.1) · **[Все изменения 22 октября](RELEASE_NOTES_0.2.2_BETA.md)** · [Предыдущие выпуски](https://github.com/MSM-App/MusicSceneMaker-App/releases)
+[Страница релиза](https://github.com/MSM-App/MusicSceneMaker-App/releases/tag/v0.2.3-beta.1) · **[Все изменения 24 октября](RELEASE_NOTES_0.2.3_BETA.md)** · [Предыдущие выпуски](https://github.com/MSM-App/MusicSceneMaker-App/releases)
 
 | Параметр | Значение |
 | --- | --- |
-| Версия | 0.2.2-beta.1 |
+| Версия | 0.2.3-beta.1 |
 | Система | Windows x64 |
-| Размер | 14509869 байт |
-| SHA-256 | 2F14FFDB35F5083A791998152557625C78BDF42740C48C9F5B4EA624D08125E1 |
+| Размер | 14 991 467 байт |
+| SHA-256 | FA985EEFECE98535C8408B070F173A399708B5F35AD486D42FFFE338CE206E33 |
 | Подпись | Отсутствует |
 | ComfyUI и модели AI | Устанавливаются отдельно в выбранную папку |
 
