@@ -1,0 +1,29 @@
+name: Publish MusicSceneMaker 0.2.3 Beta 1
+on:
+  push:
+    tags:
+      - 'v0.2.3-beta.1'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify checksum and publish NSIS installer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: v0.2.3-beta.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          asset="release-assets/MusicSceneMaker_0.2.3-beta.1_x64-setup.exe"
+          test -s "$asset"
+          echo "fa985eefece98535c8408b070f173a399708b5f35ad486d42fffe338ce206e33  $asset" | sha256sum -c -
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$asset" --clobber
+            gh release edit "$RELEASE_TAG" --notes-file RELEASE_NOTES_0.2.3_BETA.md
+          else
+            gh release create "$RELEASE_TAG" "$asset" --title "MusicSceneMaker 0.2.3 Beta 1" --notes-file RELEASE_NOTES_0.2.3_BETA.md --prerelease --verify-tag
+          fi
