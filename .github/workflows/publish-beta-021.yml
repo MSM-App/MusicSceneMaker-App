@@ -1,35 +1,54 @@
-name: MusicSceneMaker 0.2.1 Beta release
+name: Withdraw superseded MusicSceneMaker beta installers
+
 on:
   push:
-    tags:
-      - 'v0.2.1-beta.1'
     branches:
       - main
     paths:
-      - 'release-assets/MusicSceneMaker_0.2.1-beta.1_x64-setup.exe'
       - '.github/workflows/publish-beta-021.yml'
-      - 'RELEASE_NOTES_0.2.1_BETA.md'
-      - 'README.md'
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
-  publish:
+  withdraw-five-old-exes:
+    if: github.repository == 'MSM-App/MusicSceneMaker-App'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Publish or refresh beta installer on existing release
+      - name: Remove only the five published beta EXE attachments
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_TAG: v0.2.1-beta.1
+          GH_REPO: MSM-App/MusicSceneMaker-App
         shell: bash
         run: |
           set -euo pipefail
-          asset="release-assets/MusicSceneMaker_0.2.1-beta.1_x64-setup.exe"
-          test -s "$asset"
-          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            gh release upload "$RELEASE_TAG" "$asset" --clobber
-            gh release edit "$RELEASE_TAG" --notes-file RELEASE_NOTES_0.2.1_BETA.md
-          else
-            gh release create "$RELEASE_TAG" "$asset" --title "MusicSceneMaker 0.2.1 Beta" --notes-file RELEASE_NOTES_0.2.1_BETA.md --prerelease --verify-tag
-          fi
+          while IFS='|' read -r tag asset; do
+            [ -n "$tag" ] || continue
+            if gh release view "$tag" --json assets --jq '.assets[].name' | grep -Fxq -- "$asset"; then
+              echo "Withdrawing $tag / $asset"
+              gh release delete-asset "$tag" "$asset" --yes
+            else
+              echo "Already absent: $tag / $asset"
+            fi
+          done <<'END_ASSETS'
+          v0.2.0-beta.1|MusicSceneMaker_0.2.0-beta.1_x64-setup.exe
+          v0.2.1-beta.1|MusicSceneMaker_0.2.1-beta.1_x64-setup.exe
+          v0.2.1-beta.2|MusicSceneMaker_0.2.1-beta.2_x64-setup.exe
+          v0.2.2-beta.1|MusicSceneMaker_0.2.2-beta.1_x64-setup.exe
+          v0.2.3-beta.1|MusicSceneMaker_0.2.3-beta.1_x64-setup.exe
+          END_ASSETS
+          while IFS='|' read -r tag asset; do
+            [ -n "$tag" ] || continue
+            if gh release view "$tag" --json assets --jq '.assets[].name' | grep -Fxq -- "$asset"; then
+              echo "::error::Asset was not withdrawn: $tag / $asset"
+              exit 1
+            fi
+          done <<'END_VERIFY'
+          v0.2.0-beta.1|MusicSceneMaker_0.2.0-beta.1_x64-setup.exe
+          v0.2.1-beta.1|MusicSceneMaker_0.2.1-beta.1_x64-setup.exe
+          v0.2.1-beta.2|MusicSceneMaker_0.2.1-beta.2_x64-setup.exe
+          v0.2.2-beta.1|MusicSceneMaker_0.2.2-beta.1_x64-setup.exe
+          v0.2.3-beta.1|MusicSceneMaker_0.2.3-beta.1_x64-setup.exe
+          END_VERIFY
+          echo "All five old installers withdrawn; release pages and tags were preserved."
