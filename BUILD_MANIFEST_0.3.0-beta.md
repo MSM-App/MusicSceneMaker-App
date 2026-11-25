@@ -20,7 +20,6 @@
 | NSIS installer filename | MusicSceneMaker Director Cut_0.3.0-beta_x64-setup.exe |
 | NSIS installer size (bytes) | 124089618 |
 | NSIS installer SHA-256 | B4F1F8409D98A305FA2069F65B2F2492133D0C1B475D98CE5261726AADDA2E51 |
-| Local tester bundle ZIP | MSM_0.3.0_Director_Cut_Beta_Test.zip — 124,148,425 bytes — SHA-256 B53452B99DCD92AB51E084CC6E623F844DF430A4599ABD7F34ED3A77C7975D44 (local transfer package, not a public GitHub asset) |
 | NSIS archive integrity | 7-Zip 24.09 test passed; 66 files; 188063901 uncompressed bytes |
 | Code signature | NotSigned — unsigned beta installer |
 | MSI | Not built. MSI bundler rejects the non-numeric prerelease identifier “beta”; NSIS x64 was built intentionally. |
