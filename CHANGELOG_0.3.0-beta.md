@@ -242,4 +242,4 @@
 
 ---
 
-**Release status: NOT READY TO PUBLISH until the current 0.3.0 source tree is reconciled, the post-24-Nov installer is built, and the final smoke test is recorded.**
+**Release status: SOURCE SYNCED; NSIS x64 CANDIDATE BUILT AND HASHED. Keep the release as a beta draft until the installer is installed and smoke-tested, a short live ComfyUI/GPU generation is checked, and the known SparseAttnPatch.reset()/VSA limitation is disclosed to testers.**
