@@ -103,22 +103,43 @@
 - A few Rust source-contract tests still contain old expectations that P6 motion is retired or unavailable. Those tests need to be aligned with the current profile-owned I2V route and rerun.
 - Real GPU acceptance of the full P6 writer → frame → observed-frame motion → H3 generation chain remains open.
 
-## Current automated validation snapshot (25 November 2026)
+## Current automated validation snapshot — 25 November 2026
 
-- Frontend production build: **passed**.
-- Rust library suite: **3,426 passed, 5 failed, 67 ignored** (3,498 tests total).
-- A full Rust run on 15 November had **3,287 passed, 0 failed**; on 16 November **3,290 passed**. Therefore the five failures in the 25 November run must be investigated as a change from the last green baseline, not silently classified as old baseline failures.
-- The five failures are test failures, **not five application crashes**. No application crash was observed during this Rust test run.
-- The affected test areas identified for investigation are:
-  1. Audio-semantics writer routing for production music-video jobs.
-  2. P6 I2V async-result ownership and shared validation.
-  3. P2/P6 motion routing and profile boundaries.
-  4. Director Cut legacy-command cleanup and preservation of project files / writer jobs.
-  5. ComfyUI runtime process ownership and reaping of exited children.
-- **Root cause of each failure is not yet confirmed.** Possible stale test expectations, fixture/path assumptions, and genuine implementation regressions must be distinguished by capturing the exact assertion output and rerunning each failing test against the current working tree.
-- Earlier focused Director Cut / H3 / screen-singing suites passed, but those targeted results do not prove the five full-suite tests are healthy.
-- The Node audit was previously run with two UI suites blocked because the external `MSM_TEST_TOOLS` path (jsdom / esbuild) was not configured. Re-run after restoring that test harness.
-- No post-24-Nov NSIS installer has yet been verified.
+Independent re-run on the current Windows working copy:
+
+- Rust library suite: **3,432 passed, 0 failed, 67 ignored**. Command: cargo test --lib --offline.
+- All five previously failing targeted Rust tests passed separately.
+- Related Rust regression suites: **365 passed, 0 failed**.
+- CPU JavaScript audit: **21/21 suites passed, 0 failed**. The two React/DOM suites were initially blocked because MSM_TEST_TOOLS was unset; after installing jsdom/esbuild into a separate external test-tools directory and setting that variable, both passed. These are test-only dependencies and are not bundled into the application.
+- TypeScript and production frontend build: **passed**. Windows/NSIS icon checks passed for 16, 24, 32, 48, 64, 128 and 256 px. Vite emitted a non-fatal chunk-size warning (>500 kB).
+- The five earlier Rust failures were test failures, not application crashes. No application crash was observed in the test run.
+- The fresh Tauri/NSIS release build is in progress; installer output, file size and SHA-256 are not yet verified.
+- No clean-machine installation, live Tauri GUI, live LLM request, ComfyUI launch or GPU video generation was part of these automated runs.
+
+## Remaining validation before broad public release
+
+### ComfyUI Python crash in SparseAttnPatch.reset()
+
+- **Observed:** Python process aborts in SparseAttnPatch.reset() during cleanup after sampler, before the first denoising step completes.
+- **VSA observation:** adaptive grouping reduced the head group from 56 to 2.
+- **Root cause:** not established.
+- **Mitigation/diagnostics:** adaptive VSA head grouping is implemented; emergency diagnostics record process exit code, last node, available graph, RAM/VRAM measurements and Python log tail. UI action: «Открыть диагностику».
+- **Constraint:** Block Sparse Attention and VSA must remain enabled. Disabling either is not an accepted fix.
+- **Validation:** RTX 5080 16 GB comparison showed 1,710 → 115 MiB coarse-group peak, 222.04 / 222.48 seconds, identical latents and MP4 SHA-256. 8 GB and 24 GB paths were simulated, not physically validated.
+- **Status:** OPEN — root cause and multi-GPU validation required. This remains a disclosed beta risk, not a Rust test failure.
+
+### Live Director Cut and video generation
+
+- CPU contracts for Writer, Director, P6 I2V motion and scene assembly pass.
+- The full Writer → Director → scene → start-frame → observed-frame motion → H3 generation chain still needs a live Tauri GUI and GPU acceptance.
+- Review actual generated clips for story continuity, identity, clothing, locations, objects, lip-sync and timing.
+- **Status:** OPEN — external beta testing required.
+
+### Export and component installation
+
+- Partial export of ready scenes is implemented; full FFmpeg acceptance on independent PCs remains open.
+- Selected-image queue UI tests pass, but real engine lifecycle and interruption/retry behavior require a live test.
+- **Status:** OPEN — real component and export workflows required.
 
 ## Test interpretation
 
