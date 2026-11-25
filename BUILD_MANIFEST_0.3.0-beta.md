@@ -16,7 +16,7 @@
 | Architecture | x64 |
 | Application EXE filename | MusicSceneMaker.exe |
 | Application EXE size (bytes) | 63636992 |
-| Application EXE SHA-256 | ADC6FF0DFA6960F7EF10E125985B3BB117623D9F9C8D1FDDD73C1A5994CD0B9A |
+| Application EXE SHA-256 | 19E1798CD3F5CA0AD84016375CCED89778C05BABE043C341287265B64DC10266 |
 | NSIS installer filename | MusicSceneMaker Director Cut_0.3.0-beta_x64-setup.exe |
 | NSIS installer size (bytes) | 124089618 |
 | NSIS installer SHA-256 | B4F1F8409D98A305FA2069F65B2F2492133D0C1B475D98CE5261726AADDA2E51 |
@@ -37,6 +37,8 @@
 
 - Local test package folder: `C:\Users\1\Desktop\MSM_0.3.0_Director_Cut_Beta_Test`.
 - The NSIS installer is unsigned. Verify the SHA-256 before sharing; Windows may display an unknown-publisher warning.
+- The executable extracted from the NSIS package has SHA-256 19E1798CD3F5CA0AD84016375CCED89778C05BABE043C341287265B64DC10266. Tauri changes the three-byte bundle-type marker when preparing NSIS; the pre-bundle target/release executable has a different hash and must not be substituted for the packaged executable.
+- Full 7-Zip extraction produced all 66 files. The packaged yue-server.exe is 1,546,240 bytes and matches the source resource SHA-256.
 - The release build completed with 371 non-fatal Rust warnings and no compile errors.
 - The initial all-target bundle attempt failed only at the MSI metadata rule; the NSIS-only build completed successfully.
 - The known SparseAttnPatch.reset()/VSA crash root cause remains open. Block Sparse Attention and VSA remain enabled.
