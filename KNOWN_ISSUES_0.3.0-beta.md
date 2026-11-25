@@ -14,12 +14,16 @@
 - **Validation:** RTX 5080 16 GB comparison showed 1,710 → 115 MiB coarse-group peak, 222.04 / 222.48 seconds, identical latents and MP4 SHA-256. 8 GB and 24 GB paths were simulated, not physically validated.
 - **Status:** OPEN — root cause and multi-GPU validation required.
 
-### Final installer after 22–24 November changes
+### Final NSIS installer after 25 November source sync
 
-- The 0.3.0-beta NSIS package built on 16 November predates several later fixes.
-- The later emergency diagnostics and image queue work were not included in that installer.
-- A subsequent Tauri release build was blocked by Windows access denial.
-- **Status:** OPEN — build a fresh candidate from the reconciled working tree and smoke-test it.
+- Fresh Windows x64 NSIS installer built from source commit `12eda0fecc3ef2988890f08166e442218b7280fc`.
+- File: `MusicSceneMaker Director Cut_0.3.0-beta_x64-setup.exe`.
+- Size: 124,089,618 bytes (118.34 MiB).
+- SHA-256: `B4F1F8409D98A305FA2069F65B2F2492133D0C1B475D98CE5261726AADDA2E51`.
+- 7-Zip archive integrity check passed: 66 files, 188,063,901 uncompressed bytes.
+- Installer is unsigned. MSI was not produced because the MSI bundler requires a numeric-only prerelease identifier; the NSIS x64 target succeeded.
+- **Not yet verified:** actual installation, first launch, project migration and live GPU generation on a clean Windows machine.
+- **Status:** BUILT / PACKAGE-INTEGRITY-VALIDATED — install and live acceptance remain open.
 
 ## Feature-specific validation still open
 
@@ -113,7 +117,7 @@ Independent re-run on the current Windows working copy:
 - CPU JavaScript audit: **21/21 suites passed, 0 failed**. The two React/DOM suites were initially blocked because MSM_TEST_TOOLS was unset; after installing jsdom/esbuild into a separate external test-tools directory and setting that variable, both passed. These are test-only dependencies and are not bundled into the application.
 - TypeScript and production frontend build: **passed**. Windows/NSIS icon checks passed for 16, 24, 32, 48, 64, 128 and 256 px. Vite emitted a non-fatal chunk-size warning (>500 kB).
 - The five earlier Rust failures were test failures, not application crashes. No application crash was observed in the test run.
-- The fresh Tauri/NSIS release build is in progress; installer output, file size and SHA-256 are not yet verified.
+- Fresh Tauri/NSIS x64 build completed from commit 12eda0fe. Installer file size and SHA-256 are recorded above; 7-Zip integrity check passed.
 - No clean-machine installation, live Tauri GUI, live LLM request, ComfyUI launch or GPU video generation was part of these automated runs.
 
 ## Remaining validation before broad public release
