@@ -96,6 +96,27 @@
 - Treat LTX as a separate route and test it independently.
 - **Status:** NOT RE-ACCEPTED BY THE RECENT H3 FIXES.
 
+### Dedicated P6 I2V Director Cut — acceptance still required
+
+- P6 now has its own Screenwriter / Director Cut route and its own motion-adaptation stage. The motion stage observes the saved start frame with Vision, generates a motion description, then commits only if the source frame and accepted context have not changed.
+- P6 motion is an active feature in 0.3; it must not be described as a retired command.
+- A few Rust source-contract tests still contain old expectations that P6 motion is retired or unavailable. Those tests need to be aligned with the current profile-owned I2V route and rerun.
+- Real GPU acceptance of the full P6 writer → frame → observed-frame motion → H3 generation chain remains open.
+
+## Current automated validation snapshot (25 November 2026)
+
+- Frontend production build: **passed**.
+- Rust library suite: **3,426 passed, 5 failed, 67 ignored** (3,498 tests total).
+- The five failures currently cover:
+  1. An audio-semantics writer test still expecting the former P6 generic writer path.
+  2. An I2V async-ownership test still expecting P6 motion to be retired.
+  3. A profile-boundary test still expecting the old P6 motion boundary.
+  4. A cleanup test using a temporary directory outside the configured project roots; it is rejected by the current project-path safety guard before reaching the legacy-command assertion.
+  5. A Windows runtime test that expects the pure `managed_pid` probe to reap an exited child, while actual reaping and exit logging are performed by `reap_exited_child`.
+- These appear to be stale test contracts / fixture assumptions rather than five confirmed user-facing defects, but that classification is **not final until the tests are corrected and rerun**.
+- The Node audit was previously run with two UI suites blocked because the external `MSM_TEST_TOOLS` path (jsdom / esbuild) was not configured. Re-run after restoring that test harness.
+- No post-24-Nov NSIS installer has yet been verified.
+
 ## Test interpretation
 
 - Test counts from different dates, branches and suites must not be summed into a single success percentage.
