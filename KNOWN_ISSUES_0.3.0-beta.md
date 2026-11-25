@@ -107,13 +107,16 @@
 
 - Frontend production build: **passed**.
 - Rust library suite: **3,426 passed, 5 failed, 67 ignored** (3,498 tests total).
-- The five failures currently cover:
-  1. An audio-semantics writer test still expecting the former P6 generic writer path.
-  2. An I2V async-ownership test still expecting P6 motion to be retired.
-  3. A profile-boundary test still expecting the old P6 motion boundary.
-  4. A cleanup test using a temporary directory outside the configured project roots; it is rejected by the current project-path safety guard before reaching the legacy-command assertion.
-  5. A Windows runtime test that expects the pure `managed_pid` probe to reap an exited child, while actual reaping and exit logging are performed by `reap_exited_child`.
-- These appear to be stale test contracts / fixture assumptions rather than five confirmed user-facing defects, but that classification is **not final until the tests are corrected and rerun**.
+- A full Rust run on 15 November had **3,287 passed, 0 failed**; on 16 November **3,290 passed**. Therefore the five failures in the 25 November run must be investigated as a change from the last green baseline, not silently classified as old baseline failures.
+- The five failures are test failures, **not five application crashes**. No application crash was observed during this Rust test run.
+- The affected test areas identified for investigation are:
+  1. Audio-semantics writer routing for production music-video jobs.
+  2. P6 I2V async-result ownership and shared validation.
+  3. P2/P6 motion routing and profile boundaries.
+  4. Director Cut legacy-command cleanup and preservation of project files / writer jobs.
+  5. ComfyUI runtime process ownership and reaping of exited children.
+- **Root cause of each failure is not yet confirmed.** Possible stale test expectations, fixture/path assumptions, and genuine implementation regressions must be distinguished by capturing the exact assertion output and rerunning each failing test against the current working tree.
+- Earlier focused Director Cut / H3 / screen-singing suites passed, but those targeted results do not prove the five full-suite tests are healthy.
 - The Node audit was previously run with two UI suites blocked because the external `MSM_TEST_TOOLS` path (jsdom / esbuild) was not configured. Re-run after restoring that test harness.
 - No post-24-Nov NSIS installer has yet been verified.
 
