@@ -118,16 +118,6 @@ Independent re-run on the current Windows working copy:
 
 ## Remaining validation before broad public release
 
-### ComfyUI Python crash in SparseAttnPatch.reset()
-
-- **Observed:** Python process aborts in SparseAttnPatch.reset() during cleanup after sampler, before the first denoising step completes.
-- **VSA observation:** adaptive grouping reduced the head group from 56 to 2.
-- **Root cause:** not established.
-- **Mitigation/diagnostics:** adaptive VSA head grouping is implemented; emergency diagnostics record process exit code, last node, available graph, RAM/VRAM measurements and Python log tail. UI action: «Открыть диагностику».
-- **Constraint:** Block Sparse Attention and VSA must remain enabled. Disabling either is not an accepted fix.
-- **Validation:** RTX 5080 16 GB comparison showed 1,710 → 115 MiB coarse-group peak, 222.04 / 222.48 seconds, identical latents and MP4 SHA-256. 8 GB and 24 GB paths were simulated, not physically validated.
-- **Status:** OPEN — root cause and multi-GPU validation required. This remains a disclosed beta risk, not a Rust test failure.
-
 ### Live Director Cut and video generation
 
 - CPU contracts for Writer, Director, P6 I2V motion and scene assembly pass.
