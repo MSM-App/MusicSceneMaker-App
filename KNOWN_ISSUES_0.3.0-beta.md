@@ -1,0 +1,155 @@
+# MusicSceneMaker 0.3.0 Director Cut Beta — known issues and validation status
+
+> This is a pre-release register assembled from development reports through 24 November 2026. Re-check every item against the final candidate build before publication.
+
+## Critical / release-blocking validation
+
+### ComfyUI Python crash in SparseAttnPatch.reset()
+
+- **Observed:** Python process aborts in `SparseAttnPatch.reset()` during cleanup after sampler, before the first denoising step completes.
+- **VSA observation:** adaptive grouping reduced the head group from 56 to 2.
+- **Root cause:** not established.
+- **Mitigation/diagnostics:** adaptive VSA head grouping is implemented; emergency diagnostics record process exit code, last node, available graph, RAM/VRAM measurements and Python log tail. UI action: «Открыть диагностику».
+- **Constraint:** Block Sparse Attention and VSA must remain enabled. Disabling either is not an accepted fix.
+- **Validation:** RTX 5080 16 GB comparison showed 1,710 → 115 MiB coarse-group peak, 222.04 / 222.48 seconds, identical latents and MP4 SHA-256. 8 GB and 24 GB paths were simulated, not physically validated.
+- **Status:** OPEN — root cause and multi-GPU validation required.
+
+### Final NSIS installer after 25 November source sync
+
+- Fresh Windows x64 NSIS installer built from source commit `12eda0fecc3ef2988890f08166e442218b7280fc`.
+- File: `MusicSceneMaker Director Cut_0.3.0-beta_x64-setup.exe`.
+- Size: 124,089,618 bytes (118.34 MiB).
+- SHA-256: `B4F1F8409D98A305FA2069F65B2F2492133D0C1B475D98CE5261726AADDA2E51`.
+- 7-Zip archive integrity check passed: 66 files, 188,063,901 uncompressed bytes.
+- Installer is unsigned. MSI was not produced because the MSI bundler requires a numeric-only prerelease identifier; the NSIS x64 target succeeded.
+- **Not yet verified:** actual installation, first launch, project migration and live GPU generation on a clean Windows machine.
+- **Status:** BUILT / PACKAGE-INTEGRITY-VALIDATED — install and live acceptance remain open.
+
+## Feature-specific validation still open
+
+### Writer / Director and scene assembly
+
+- CPU tests cover multiple director and scene-assembly rules.
+- A ten-scene test exposed location, prop, action and clothing-state inconsistencies; targeted fixes were applied and 101 CPU tests passed.
+- GPU-rendered acceptance of the corrected scenes has not been completed.
+- A transition to a café was present in the source screenplay and must not automatically be classified as an assembler defect.
+- **Status:** PARTIALLY VALIDATED — real generated scene review required.
+
+### Wardrobe and identity continuity
+
+- The scene-020 wardrobe issue was traced to a short `outfit` field in `looks.json` replacing the full approved outfit description.
+- ID-bound outfit propagation was fixed for the tested project copy and both Continuity Chain chunks.
+- 500 T2V tests and 5 character-card tests passed; scene-020 prompt acceptance passed.
+- GPU visual acceptance remains open.
+- **Status:** PARTIALLY VALIDATED.
+
+### Screen singing / vocal continuity
+
+- Six regressions for scenes 007–009 passed.
+- 499 T2V H3 tests and 59 director-module tests passed.
+- CPU / FFmpeg checks only; no GPU render acceptance was performed.
+- One broader Director Cut command test was blocked by `PROJECT_PATH_UNSAFE`.
+- **Status:** CPU-VALIDATED — GPU acceptance and broader project-path test remain open.
+
+### Selected image generation queue
+
+- «Нарисовать выбранное» creates a sequential queue for selected characters, props and locations.
+- Navigation and stop-after-current behavior are implemented in the UI.
+- Earlier verification used a mocked engine, not real image generation.
+- **Status:** UI-VALIDATED ONLY — real engine lifecycle required.
+
+### YuE2 / StudioPolish
+
+- Voice Map handling and quick vocal markup were improved.
+- StudioPolish has analysis and EQ / Dynamics / Mastering UI work.
+- Full per-tab playback, loop, A/B and real-time processing are not confirmed complete.
+- Accentuation remains experimental.
+- **Status:** PARTIALLY IMPLEMENTED — do not advertise unfinished controls as ready.
+
+### Export
+
+- Partial export of ready scenes was implemented.
+- Full FFmpeg acceptance of the new path was not confirmed.
+- **Status:** OPEN.
+
+## Model and hardware limitations
+
+### Pika H3 Flex
+
+- Native local generation maximum: **1344 × 768 (768p, 16:9)**.
+- Higher output dimensions require a separate upscale stage.
+- GPU generation, lip-sync and Continuity acceptance across hardware configurations is not confirmed.
+- **Status:** EXPERIMENTAL.
+
+### Qwen Image 2.1 frame size
+
+- HD and QHD passed the recorded resolution checks.
+- In Full HD, the model returned 1920 × 1088 and the app cropped to 1920 × 1080.
+- Validate saved image dimensions and visual crop in the final build.
+- **Status:** KNOWN OUTPUT ADJUSTMENT — recheck final UI.
+
+### Fast H3 Omni
+
+- Reference-oriented route; no-reference behavior uses the H3 fallback.
+- Validate routing, missing-reference warnings and the actual generation graph.
+- **Status:** ROUTING IMPLEMENTED — acceptance by hardware/model combination required.
+
+### LTX 2.5
+
+- The recent MiniMax H3 wardrobe, screen-singing and scene-assembly fixes do not imply changes to LTX 2.5.
+- Treat LTX as a separate route and test it independently.
+- **Status:** NOT RE-ACCEPTED BY THE RECENT H3 FIXES.
+
+### Dedicated P6 I2V Director Cut — acceptance still required
+
+- P6 now has its own Screenwriter / Director Cut route and its own motion-adaptation stage. The motion stage observes the saved start frame with Vision, generates a motion description, then commits only if the source frame and accepted context have not changed.
+- P6 motion is an active feature in 0.3; it must not be described as a retired command.
+- A few Rust source-contract tests still contain old expectations that P6 motion is retired or unavailable. Those tests need to be aligned with the current profile-owned I2V route and rerun.
+- Real GPU acceptance of the full P6 writer → frame → observed-frame motion → H3 generation chain remains open.
+
+## Current automated validation snapshot — 25 November 2026
+
+Independent re-run on the current Windows working copy:
+
+- Rust library suite: **3,432 passed, 0 failed, 67 ignored**. Command: cargo test --lib --offline.
+- All five previously failing targeted Rust tests passed separately.
+- Related Rust regression suites: **365 passed, 0 failed**.
+- CPU JavaScript audit: **21/21 suites passed, 0 failed**. The two React/DOM suites were initially blocked because MSM_TEST_TOOLS was unset; after installing jsdom/esbuild into a separate external test-tools directory and setting that variable, both passed. These are test-only dependencies and are not bundled into the application.
+- TypeScript and production frontend build: **passed**. Windows/NSIS icon checks passed for 16, 24, 32, 48, 64, 128 and 256 px. Vite emitted a non-fatal chunk-size warning (>500 kB).
+- The five earlier Rust failures were test failures, not application crashes. No application crash was observed in the test run.
+- Fresh Tauri/NSIS x64 build completed from commit 12eda0fe. Installer file size and SHA-256 are recorded above; 7-Zip integrity check passed.
+- No clean-machine installation, live Tauri GUI, live LLM request, ComfyUI launch or GPU video generation was part of these automated runs.
+
+## Remaining validation before broad public release
+
+### Live Director Cut and video generation
+
+- CPU contracts for Writer, Director, P6 I2V motion and scene assembly pass.
+- The full Writer → Director → scene → start-frame → observed-frame motion → H3 generation chain still needs a live Tauri GUI and GPU acceptance.
+- Review actual generated clips for story continuity, identity, clothing, locations, objects, lip-sync and timing.
+- **Status:** OPEN — external beta testing required.
+
+### Export and component installation
+
+- Partial export of ready scenes is implemented; full FFmpeg acceptance on independent PCs remains open.
+- Selected-image queue UI tests pass, but real engine lifecycle and interruption/retry behavior require a live test.
+- **Status:** OPEN — real component and export workflows required.
+
+## Test interpretation
+
+- Test counts from different dates, branches and suites must not be summed into a single success percentage.
+- A CPU test does not prove GPU generation works.
+- A mocked engine test does not prove the real ComfyUI workflow works.
+- A successful build does not prove clean Windows installation.
+- A passing prompt/graph assertion does not prove visual continuity in the generated video.
+
+## Release gate
+
+Do not mark 0.3.0 Director Cut Beta as ready for public download until:
+
+1. The exact source tree is synchronized and reviewed.
+2. The post-24-Nov installer is built.
+3. Fresh install and upgrade paths are smoke-tested.
+4. A small real GPU generation is completed for each engine advertised as available.
+5. The SparseAttnPatch/VSA crash is either resolved or clearly disclosed with diagnostics and a safe test protocol.
+6. The final SHA-256, file size, build date and commit SHA are recorded.
